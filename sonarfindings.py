@@ -7,7 +7,7 @@ def divisione(a, b):
 
 def password_check(password):
     # Hardcoded password (security hotspot)
-    if password == "123456":
+    if password == "1234567":
         return True
     return False
 
