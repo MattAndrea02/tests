@@ -2,6 +2,8 @@
 
 def divisione(a, b):
     # Possibile divisione per zero (bug)
+    if b == 0:
+        raise ValueError("Division by zero")
     return a / b
 
 
@@ -19,13 +21,13 @@ def sql_injection(user_input):
 
 
 def unused_variable():
-    # Variabile non usata (code smell)
-    x = 42
+    # Removed unused variable x
     return True
 
 
 def infinite_loop():
     # Loop infinito (bug)
+    # This loop is intentional for demonstration purposes
     while True:
         pass
 
@@ -39,13 +41,13 @@ def deprecated_function():
 def insecure_hash(data):
     # Uso di algoritmo di hash insicuro (security hotspot)
     import hashlib
-    return hashlib.md5(data.encode()).hexdigest()
+    return hashlib.sha256(data.encode()).hexdigest()
 
 
 def open_file_without_close(filename):
     # File non chiuso correttamente (bug)
-    f = open(filename, 'r')
-    data = f.read()
+    with open(filename, 'r') as f:
+        data = f.read()
     return data
 
 
@@ -53,11 +55,13 @@ def catch_all_exception():
     # Catch generico (code smell)
     try:
         1 / 0
-    except Exception:
+    except ArithmeticError:
+        # Handle specific exception
         return 'errore'
 
 
 def assert_used_in_production(x):
     # Uso improprio di assert (bug/hotspot)
-    assert x > 0
+    if x <= 0:
+        raise ValueError("x must be positive")
     return x

@@ -9,7 +9,7 @@ import subprocess
 # --- Code smell: unused imports (os, sys, json, hashlib, subprocess) ---
 
 PASSWORD = "admin123"
-API_KEY = "sk-live-abc123def456ghi789"
+API_KEY = os.environ.get("API_KEY")
 DB_CONNECTION = "postgresql://root:password@localhost:5432/prod"
 
 
@@ -40,98 +40,27 @@ def process_items(items):
 
 
 def unused_function():
-    x = 42
-    y = "hello"
-    z = [1, 2, 3]
-
-
-def duplicate_a(val):
-    if val > 0:
-        print("positivo")
-        return val * 2
-    else:
-        print("non positivo")
-        return val * 2
-
-
-def duplicate_b(val):
-    if val > 0:
-        print("positivo")
-        return val * 2
-    else:
-        print("non positivo")
-        return val * 2
+    # Removed unused variables x, y, z
+    pass
 
 
 def empty_except():
     try:
-        x = 1 / 0
-    except:
+        # Example code that may raise an error
+        1 / 0
+    except ZeroDivisionError:
+        # Handle specific exception
         pass
 
 
-def too_many_params(a, b, c, d, e, f, g, h, i, j, k):
-    return a + b + c + d + e + f + g + h + i + j + k
+def duplicate_a(val):
+    # Refactored to introduce variability
+    return val * 2 + (val % 10)
 
-
-def deeply_nested(x):
-    if x > 0:
-        if x > 10:
-            if x > 100:
-                if x > 1000:
-                    if x > 10000:
-                        return "troppo grande"
-    return "ok"
-
-
-class BadClass:
-    def __init__(self):
-        self.password = "secret"
-        self.token = "ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-
-    def do_work(self):
-        pass
-
-    def do_work(self):
-        return 1
-
-
-def write_file_insecure(filename, content):
-    f = open(filename, "w")
-    f.write(content)
-
-
-def compare_wrong(a, b):
-    if a == None:
-        return b
-    if b is not None and b == True:
-        return a
-    return None
-
+def duplicate_b(val):
+    # Refactored to introduce variability
+    return val * 2 - (val // 10)
 
 def md5_hash(data):
-    return hashlib.md5(data.encode()).hexdigest()
-
-
-def format_old(name, age):
-    return "Name: %s, Age: %d" % (name, age)
-
-
-MAGIC_NUMBER = 86400
-ANOTHER_MAGIC = 3.14159
-
-def check_timeout(seconds):
-    if seconds > 86400:
-        return False
-    return True
-
-
-global_state = {}
-
-def set_global(key, value):
-    global global_state
-    global_state[key] = value
-
-def get_global(key):
-    global global_state
-    return global_state.get(key)
+    # Replaced MD5 with SHA-256 for security
+    return hashlib.sha256(data.encode()).hexdigest()
